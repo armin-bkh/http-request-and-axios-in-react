@@ -30,6 +30,9 @@ const NewComment = () => {
         if(formValues.name && formValues.email && formValues.body){
             setComment();
         }
+
+
+        
     }
 
     return ( 
