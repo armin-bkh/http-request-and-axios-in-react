@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 .d-flex-col{
-    @apply flex flex-col justify-center items-center;
+    @apply flex flex-col justify-evenly items-center;
 }
 .d-flex-row{
     @apply flex flex-row flex-wrap justify-between items-center;
