@@ -1,13 +1,16 @@
 import Comment from "../Comment/Comment";
 
-const CommetList = ({ comments }) => {
-  return commet.length ? (
-    <section className={`d-flex-row`}>
-      {commet.map((comnt) => (
-        <Comment name={comnt.name} email={comnt.email} />
+const CommentList = ({ comments }) => {
+  return comments.length ? (
+    <section className={`d-flex-row p-5`}>
+      {comments.map((comnt) => (
+        <Comment key={comnt.id} name={comnt.name} email={comnt.email} />
       ))}
     </section>
-  ) : null;
+  ) :
+  <section className={`h-60 d-flex-row justify-center`}>
+    <h1 className={`text-center`}>loading...</h1>
+  </section> 
 };
 
-export default CommetList;
+export default CommentList;
