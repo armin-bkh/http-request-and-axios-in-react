@@ -1,5 +1,8 @@
 @tailwind base;
 @tailwind components;
+.d-flex-col{
+ @apply flex flex-col justify-center items-between;
+}
 @tailwind utilities;
 
 
