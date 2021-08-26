@@ -1,4 +1,4 @@
-const Commet = ({ name, email }) => {
+const Comment = ({ name, email }) => {
     return ( 
         <article className={`d-flex-col`}>
             <h3>{name}</h3>
@@ -7,4 +7,4 @@ const Commet = ({ name, email }) => {
      );
 }
  
-export default Commet;
+export default Comment;
