@@ -12,7 +12,7 @@ const Discusstion = () => {
     useEffect(()=>{
         const getComments = async () => {
             try{
-                const { data } = await axios.get("https://jsonplaceholder.typicode.com/comments");
+                const { data } = await axios.get("https://jsonplaceholder.typicode.com/commentss");
                 setComments(data.splice(0, 4));
             }
             catch(err){

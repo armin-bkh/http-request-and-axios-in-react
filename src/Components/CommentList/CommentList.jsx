@@ -1,22 +1,15 @@
+import { useToasts } from "react-toast-notifications";
 import Comment from "../Comment/Comment";
 
 const CommentList = ({ comments, onClick, error }) => {
-  // return comments.length ? (
-  //   <section className={`d-flex-row p-5`}>
-  //     {comments.map((comnt) => (
-  //       <Comment key={comnt.id} name={comnt.name} email={comnt.email} onClick={()=> onClick(comnt.id)} />
-  //     ))}
-  //   </section>
-  // ) :
-  // <section className={`h-60 d-flex-row justify-center`}>
-  //   <h1 className={`text-center`}>loading...</h1>
-  // </section> 
-
-
+  const { addToast } = useToasts();
   const renderComments = () => {
     let renderValue = <h1 className={`text-2xl text-center`}>Loading...</h1>;
 
-    if(error) renderValue = <h1 className={`text-2xl text-center`}>{error.message}</h1>;
+    if(error) {
+      renderValue = <h1 className={`text-2xl text-center`}>{error.message}</h1>;
+      addToast(renderValue, {appearance: 'error', autoDismiss: true});
+    }
 
 
     if(comments.length && !error){
