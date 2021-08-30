@@ -3,13 +3,20 @@ import { useEffect, useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import InputComment from "../InputComment/InputComment"
 
-const NewComment = ({ setComments, error }) => {
+const NewComment = ({ setComments }) => {
     const { addToast } = useToasts();
     const [formValues, setFormValues] = useState({
         name: '',
         email: '',
         body: ''
     });
+    const [error, setError] = useState('');
+
+    useEffect(()=>{
+        if(error){
+            addToast(error.message, {appearance: error.type, autoDismiss: true})
+        }
+    }, [error])
 
     const changeHandler = (e) => {
         setFormValues({
@@ -22,12 +29,12 @@ const NewComment = ({ setComments, error }) => {
         e.preventDefault();
         try{
             await axios.post("http://localhost:3001/comments", formValues);
-            const { data } = axios.get("http://localhost:3001/comments");
+            const { data } = await axios.get("http://localhost:3001/comments");
             setComments(data);
-            addToast("successed", {appearance: 'success', autoDismiss: true})
+            setError({message: "comment successfully added", type: "success"});
         }
         catch(err){
-            addToast("cant add it", {appearance: 'success', autoDismiss: true})
+            setError({message: "same error has been accord", type: "error"});
         }
         setFormValues({
             name: '',

@@ -3,9 +3,10 @@ import { useEffect, useState } from "react";
 import { useToasts } from "react-toast-notifications";
 import styles from "./FullComment.module.scss";
 
-const FullComment = ({ commentId, setComments, error, setError }) => {
-  const [comment, setComment] = useState('');
+const FullComment = ({ commentId, setComments }) => {
+  const [comment, setComment] = useState("");
   const { addToast } = useToasts();
+  const [error, setError] = useState('');
 
   useEffect(() => {
     if (commentId) {
@@ -19,35 +20,34 @@ const FullComment = ({ commentId, setComments, error, setError }) => {
     }
   }, [commentId]);
 
-  const submitHandler = async (e) =>{
+  useEffect(()=>{
+    if(error){
+      addToast(error.message, {appearance: error.type, autoDismiss: true})
+    }
+  }, [error])
+
+  const submitHandler = async (e) => {
     e.preventDefault();
-    try{
+    try {
       await axios.delete(`http://localhost:3001/comments/${commentId}`);
-      const { data } = axios.get("http://localhost:3001/comments");
-      setComments(data);
+      const { data } = await axios.get("http://localhost:3001/comments");
+      setComments(data)
+      setError({message: 'comment successfully removed', type: 'success'});
+    } catch (err) {
+      setError({message: 'same error has been accord', type: 'error'});
     }
-    catch(err){
-      console.log(err);
-    }
-  }
+  };
 
-  let returnValue = <h1>select one comment</h1>;
+  let returnValue = <h1 className={`text-center`}>select one comment</h1>;
 
-  if(commentId) {
+  if (commentId) {
     returnValue = (
-    <section
-      className={`d-flex-col bg-white shadow-lg ${styles.fullCommentContainer}`}
-    >
-      <h1 className={`text-lg`}>Loading...</h1>
-    </section>
-  )
+        <h1 className={`text-lg`}>Loading...</h1>
+    );
   }
 
   if (comment) {
     returnValue = (
-      <section
-        className={`d-flex-col bg-white shadow-lg ${styles.fullCommentContainer}`}
-      >
       <form className={`d-flex-col h-full`} onSubmit={submitHandler}>
         <h3>name: {comment.name}</h3>
         <h5>email: {comment.email}</h5>
@@ -59,11 +59,16 @@ const FullComment = ({ commentId, setComments, error, setError }) => {
           Remove
         </button>
       </form>
-      </section>
     );
   }
-  
-  return returnValue;
+
+  return (
+    <section
+      className={`d-flex-col bg-white shadow-lg ${styles.fullCommentContainer}`}
+    >
+      {returnValue}
+    </section>
+  );
 };
 
 export default FullComment;

@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { useToasts } from "react-toast-notifications"
 import CommentList from "../../Components/CommentList/CommentList"
 import FullComment from "../../Components/FullComment/FullComment"
 import NewComment from "../../Components/NewComment/NewComment"
@@ -7,12 +8,8 @@ import NewComment from "../../Components/NewComment/NewComment"
 const Discusstion = () => {
     const [comments, setComments] = useState([]);
     const [commentId, setCommentId] = useState(null);
-    const [error, setError] = useState(false);
-    const [formValues, setFormValues] = useState({
-        name: '',
-        email: '',
-        body: ''
-    });
+    const [error, setError] = useState('');
+    const { addToast } = useToasts();
 
     useEffect(()=>{
         const getComments = async () => {
@@ -21,11 +18,17 @@ const Discusstion = () => {
                 setComments(data);
             }
             catch(err){
-                setError({message: "cant fetch data"});
+                setError({message: 'data fetching delete', type: 'error'});
             }
         }
         getComments();
     }, [])
+
+    useEffect(()=>{
+        if(error){
+            addToast(error.message, {appearance: error.type, autoDismiss: true})
+        }
+    }, [error])
 
     const selectCommentHandler = (id) =>{
         setCommentId(id);
@@ -33,8 +36,8 @@ const Discusstion = () => {
 
     return ( 
         <>
-            <CommentList error={error} comments={comments} setError={setError} onClick={selectCommentHandler} />
-            <FullComment error={error} commentId={commentId} setError={setError} setComments={setComments} />
+            <CommentList error={error} comments={comments} onClick={selectCommentHandler} />
+            <FullComment commentId={commentId} setComments={setComments} />
             <NewComment setComments={setComments} />
         </>
      );
