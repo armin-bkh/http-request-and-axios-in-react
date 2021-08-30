@@ -8,15 +8,20 @@ const Discusstion = () => {
     const [comments, setComments] = useState([]);
     const [commentId, setCommentId] = useState(null);
     const [error, setError] = useState(false);
+    const [formValues, setFormValues] = useState({
+        name: '',
+        email: '',
+        body: ''
+    });
 
     useEffect(()=>{
         const getComments = async () => {
             try{
-                const { data } = await axios.get("https://jsonplaceholder.typicode.com/comments");
-                setComments(data.splice(0, 4));
+                const { data } = await axios.get("http://localhost:3001/comments");
+                setComments(data);
             }
             catch(err){
-                setError({message: "fetching data failed"});
+                setError({message: "cant fetch data"});
             }
         }
         getComments();
@@ -28,9 +33,9 @@ const Discusstion = () => {
 
     return ( 
         <>
-            <CommentList error={error} comments={comments} onClick={selectCommentHandler} />
-            <FullComment commentId={commentId} />
-            <NewComment />
+            <CommentList error={error} comments={comments} setError={setError} onClick={selectCommentHandler} />
+            <FullComment error={error} commentId={commentId} setError={setError} setComments={setComments} />
+            <NewComment setComments={setComments} />
         </>
      );
 }

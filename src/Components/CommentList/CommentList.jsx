@@ -9,28 +9,31 @@ const CommentList = ({ comments, onClick, error }) => {
     if (error)
       addToast(error.message, { appearance: "error", autoDismiss: true });
   }, [error]);
+
   const renderComments = () => {
-    let renderValue = <h1 className={`text-2xl text-center`}>Loading...</h1>;
+    let returnValue;
+
+    if(!comments.length) returnValue = <h1 className={`text-2xl text-center`}>Loading...</h1>;
 
     if (error)
-      renderValue = <h1 className={`text-2xl text-center`}>{error.message}</h1>;
-
-    if (comments.length && !error)
-      renderValue = comments.map((comnt) => (
-        <Comment
-          key={comnt.id}
-          name={comnt.name}
+    returnValue = <h1 className={`text-2xl text-center`}>{error.message}</h1>;
+      
+      if (comments)
+      returnValue =  comments.map((comnt) => (
+            <Comment
+              key={comnt.id}
+              name={comnt.name}
           email={comnt.email}
           onClick={() => onClick(comnt.id)}
         />
       ));
 
-    return renderValue;
+      return returnValue
   };
 
   return (
     <section
-      className={`d-flex-row p-5 ${!comments.length && `justify-center`}`}
+      className={`d-flex-row p-5 ${!comments && `justify-center`}`}
     >
       {renderComments()}
     </section>

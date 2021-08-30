@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useToasts } from "react-toast-notifications";
 import InputComment from "../InputComment/InputComment"
 
-const NewComment = () => {
+const NewComment = ({ setComments, error }) => {
+    const { addToast } = useToasts();
     const [formValues, setFormValues] = useState({
         name: '',
         email: '',
@@ -16,23 +18,22 @@ const NewComment = () => {
         })
     }
 
-    const submitHandler = (e) =>{
+    const submitHandler = async (e) =>{
         e.preventDefault();
-        const setComment = async () => {
-            try{
-                const { data } = await axios.post("https://jsonplaceholder.typicode.com/comments", formValues);
-                console.log(data); 
-            }
-            catch(err){
-                console.log(err);
-            }
+        try{
+            await axios.post("http://localhost:3001/comments", formValues);
+            const { data } = axios.get("http://localhost:3001/comments");
+            setComments(data);
+            addToast("successed", {appearance: 'success', autoDismiss: true})
         }
-        if(formValues.name && formValues.email && formValues.body){
-            setComment();
+        catch(err){
+            addToast("cant add it", {appearance: 'success', autoDismiss: true})
         }
-
-
-        
+        setFormValues({
+            name: '',
+            email: '',
+            body: ''
+        });
     }
 
     return ( 
