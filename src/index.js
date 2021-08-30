@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import './tailwind.css';
 import App from './App/App';
+import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.render(
   <React.StrictMode>

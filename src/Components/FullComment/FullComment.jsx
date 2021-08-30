@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useToasts } from "react-toast-notifications";
+import { toast } from "react-toastify";
 import styles from "./FullComment.module.scss";
 
 const FullComment = ({ commentId, setComments }) => {
   const [comment, setComment] = useState("");
-  const { addToast } = useToasts();
   const [error, setError] = useState('');
 
   useEffect(() => {
@@ -22,7 +21,10 @@ const FullComment = ({ commentId, setComments }) => {
 
   useEffect(()=>{
     if(error){
-      addToast(error.message, {appearance: error.type, autoDismiss: true})
+      if(error.type === 'error')
+      toast.error(error.message)
+      if(error.type === 'success')
+      toast.success(error.message)
     }
   }, [error])
 

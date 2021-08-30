@@ -1,12 +1,23 @@
-import { ToastProvider } from "react-toast-notifications";
+import { ToastContainer } from "react-toastify";
 import Discusstion from "../Container/Discusstion/Discussion";
 
 const App = () => {
   return (
-    <ToastProvider>
+    <>
       <Discusstion />
-    </ToastProvider>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </>
   );
-}
+};
 
 export default App;
