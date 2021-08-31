@@ -1,4 +1,4 @@
-import axios from "axios";
+import http from "../../Services/httpServices";
 import { useEffect, useState } from "react";
 import CommentList from "../../Components/CommentList/CommentList";
 import FullComment from "../../Components/FullComment/FullComment";
@@ -13,7 +13,7 @@ const Discusstion = () => {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3001/comments");
+        const { data } = await http.get("/comments");
         setComments(data);
       } catch (err) {
         setError({ message: "data fetching delete", type: "error" });
@@ -42,7 +42,7 @@ const Discusstion = () => {
         comments={comments}
         onClick={selectCommentHandler}
       />
-      <FullComment commentId={commentId} setComments={setComments} />
+      <FullComment commentId={commentId} setComments={setComments} setCommentId={setCommentId} />
       <NewComment setComments={setComments} />
     </>
   );

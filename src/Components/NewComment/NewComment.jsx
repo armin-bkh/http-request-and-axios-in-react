@@ -1,4 +1,4 @@
-import axios from "axios";
+import http from "../../Services/httpServices";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import InputComment from "../InputComment/InputComment"
@@ -30,8 +30,8 @@ const NewComment = ({ setComments }) => {
     const submitHandler = async (e) =>{
         e.preventDefault();
         try{
-            await axios.post("http://localhost:3001/comments", formValues);
-            const { data } = await axios.get("http://localhost:3001/comments");
+            await http.post("/comments", formValues);
+            const { data } = await http.get("/comments");
             setComments(data);
             setError({message: "comment successfully added", type: "success"});
         }

@@ -1,17 +1,17 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import http from "../../Services/httpServices";
 import styles from "./FullComment.module.scss";
 
-const FullComment = ({ commentId, setComments }) => {
+const FullComment = ({ commentId, setComments, setCommentId }) => {
   const [comment, setComment] = useState("");
   const [error, setError] = useState('');
 
   useEffect(() => {
     if (commentId) {
       const getComment = async () => {
-        const { data } = await axios.get(
-          `http://localhost:3001/comments/${commentId}`
+        const { data } = await http.get(
+          `/comments/${commentId}`
         );
         setComment(data);
       };
@@ -31,9 +31,11 @@ const FullComment = ({ commentId, setComments }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      await axios.delete(`http://localhost:3001/comments/${commentId}`);
-      const { data } = await axios.get("http://localhost:3001/comments");
-      setComments(data)
+      await http.delete(`/comments/${commentId}`);
+      const { data } = await http.get("/comments");
+      setComments(data);
+      setComment(null);
+      setCommentId(null);
       setError({message: 'comment successfully removed', type: 'success'});
     } catch (err) {
       setError({message: 'same error has been accord', type: 'error'});
