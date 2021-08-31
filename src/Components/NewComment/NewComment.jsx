@@ -1,7 +1,9 @@
 import http from "../../Services/httpServices";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import InputComment from "../InputComment/InputComment"
+import InputComment from "../InputComment/InputComment";
+import { addNewComment } from '../../Services/addNewCommentService';
+import { getAllComments } from "../../Services/getAllCommentsService";
 
 const NewComment = ({ setComments }) => {
     const [formValues, setFormValues] = useState({
@@ -30,8 +32,8 @@ const NewComment = ({ setComments }) => {
     const submitHandler = async (e) =>{
         e.preventDefault();
         try{
-            await http.post("/comments", formValues);
-            const { data } = await http.get("/comments");
+            await addNewComment(formValues);
+            const { data } = await getAllComments();
             setComments(data);
             setError({message: "comment successfully added", type: "success"});
         }

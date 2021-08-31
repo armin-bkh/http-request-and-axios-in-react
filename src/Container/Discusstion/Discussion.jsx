@@ -4,6 +4,7 @@ import CommentList from "../../Components/CommentList/CommentList";
 import FullComment from "../../Components/FullComment/FullComment";
 import NewComment from "../../Components/NewComment/NewComment";
 import { toast } from "react-toastify";
+import { getAllComments } from "../../Services/getAllCommentsService";
 
 const Discusstion = () => {
   const [comments, setComments] = useState([]);
@@ -13,7 +14,7 @@ const Discusstion = () => {
   useEffect(() => {
     const getComments = async () => {
       try {
-        const { data } = await http.get("/comments");
+        const { data } = await getAllComments();
         setComments(data);
       } catch (err) {
         setError({ message: "data fetching delete", type: "error" });

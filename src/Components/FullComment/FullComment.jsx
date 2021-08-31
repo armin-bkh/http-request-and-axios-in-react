@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import http from "../../Services/httpServices";
 import styles from "./FullComment.module.scss";
+import { getOneComment } from '../../Services/getOneCommentService';
+import { deleteComment } from '../../Services/deleteCommentService';
+import { getAllComments } from '../../Services/getAllCommentsService';
 
 const FullComment = ({ commentId, setComments, setCommentId }) => {
   const [comment, setComment] = useState("");
@@ -10,9 +13,7 @@ const FullComment = ({ commentId, setComments, setCommentId }) => {
   useEffect(() => {
     if (commentId) {
       const getComment = async () => {
-        const { data } = await http.get(
-          `/comments/${commentId}`
-        );
+        const { data } = await getOneComment(commentId)
         setComment(data);
       };
       getComment();
@@ -31,8 +32,8 @@ const FullComment = ({ commentId, setComments, setCommentId }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      await http.delete(`/comments/${commentId}`);
-      const { data } = await http.get("/comments");
+      await deleteComment(commentId);
+      const { data } = await getAllComments();
       setComments(data);
       setComment(null);
       setCommentId(null);
