@@ -6,6 +6,7 @@ const CommentList = ({ comments, onClick, error }) => {
   if(comments.length && !error) {
     returnValue = comments.map((comnt) => (
     <Comment
+      id={comnt.id}
       key={comnt.id}
       name={comnt.name}
       email={comnt.email}

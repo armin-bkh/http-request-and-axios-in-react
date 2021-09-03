@@ -6,19 +6,18 @@ import { getOneComment } from '../../Services/getOneCommentService';
 import { deleteComment } from '../../Services/deleteCommentService';
 import { getAllComments } from '../../Services/getAllCommentsService';
 
-const FullComment = ({ commentId, setComments, setCommentId }) => {
+const FullComment = ({ commentId, setComments, setCommentId, match }) => {
   const [comment, setComment] = useState("");
   const [error, setError] = useState('');
+  const id = match.params.id;
 
   useEffect(() => {
-    if (commentId) {
       const getComment = async () => {
-        const { data } = await getOneComment(commentId)
+        const { data } = await getOneComment(id)
         setComment(data);
       };
       getComment();
-    }
-  }, [commentId]);
+  }, []);
 
   useEffect(()=>{
     if(error){
