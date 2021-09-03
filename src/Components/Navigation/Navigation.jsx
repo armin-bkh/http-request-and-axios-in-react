@@ -7,11 +7,11 @@ const links = [
 
 const Navigation = () => {
   return (
-    <nav>
-      <ul>
+    <nav className={`self-start`}>
+      <ul className={`flex`}>
         {links.map((link) => (
           <li key={link.to}>
-            <NavLink activeClassName="text-red-500" to={link.to}>{link.title}</NavLink>
+            <NavLink className={`px-1 py-2`} activeClassName="text-red-500" to={link.to}>{link.title}</NavLink>
           </li>
         ))}
       </ul>

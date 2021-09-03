@@ -9,8 +9,8 @@ const App = () => {
     <Layout>
       <Switch>
         {
-          routes.map(route => (
-            <Route {...route} />
+          routes.map((route, index) => (
+            <Route key={index} {...route} />
           ))
         }
       </Switch>
