@@ -43,8 +43,8 @@ const Discusstion = () => {
         comments={comments}
         onClick={selectCommentHandler}
       />
-      <FullComment commentId={commentId} setComments={setComments} setCommentId={setCommentId} />
-      <NewComment setComments={setComments} />
+      {/* <FullComment commentId={commentId} setComments={setComments} setCommentId={setCommentId} />
+      <NewComment setComments={setComments} /> */}
     </>
   );
 };

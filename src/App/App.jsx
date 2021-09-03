@@ -1,10 +1,19 @@
 import { ToastContainer } from "react-toastify";
-import Discusstion from "../Container/Discusstion/Discussion";
+import { Route, Switch } from "react-router-dom";
+import Layout from '../Layouts/Layout';
+import routes from '../Routes/Routes';
 
 const App = () => {
   return (
     <>
-      <Discusstion />
+    <Layout>
+      <Switch>
+        {
+          routes.map(route => (
+            <Route {...route} />
+          ))
+        }
+      </Switch>
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -16,6 +25,7 @@ const App = () => {
         draggable
         pauseOnHover
       />
+    </Layout>
     </>
   );
 };
