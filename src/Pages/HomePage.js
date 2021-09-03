@@ -1,8 +1,8 @@
-import Discusstion from "../Container/Discusstion/Discussion";
+import CommentList from "../Components/CommentList/CommentList";
 
 const HomePage = () => {
     return ( 
-        <Discusstion />
+        <CommentList />
      );
 }
  

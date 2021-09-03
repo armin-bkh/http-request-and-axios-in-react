@@ -7,18 +7,18 @@ import { deleteComment } from '../../Services/deleteCommentService';
 import { getAllComments } from '../../Services/getAllCommentsService';
 import { Link } from "react-router-dom";
 
-const FullComment = ({ match }) => {
+const FullComment = ({match, history}) => {
   const [comment, setComment] = useState("");
   const [error, setError] = useState('');
-  const [commentId, setCommentId] = useState(match.params.id);
+  let commentID = match.params.id;
 
   useEffect(() => {
       const getComment = async () => {
-        const { data } = await getOneComment(commentId)
+        const { data } = await getOneComment(commentID)
         setComment(data);
       };
       getComment();
-  }, []);
+  }, [commentID]);
 
   useEffect(()=>{
     if(error){
@@ -32,18 +32,18 @@ const FullComment = ({ match }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      await deleteComment(commentId);
+      await deleteComment(commentID);
       setComment(null);
-      setCommentId(null)
+      // commentID = null;
       setError({message: 'comment successfully removed', type: 'success'});
     } catch (err) {
       setError({message: 'same error has been accord', type: 'error'});
     }
   };
 
-  let returnValue = <h1 className={`text-purple-400 text-center`}><Link to="/" >go to home page</Link></h1>;
+  let returnValue = <h1 className={`text-purple-400 text-center`}><Link to="/">go to home page</Link></h1>;
 
-  if (commentId) {
+  if (commentID) {
     returnValue = (
         <h1 className={`text-lg`}>Loading...</h1>
     );
