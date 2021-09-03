@@ -8,7 +8,6 @@ import { getAllComments } from "../../Services/getAllCommentsService";
 
 const Discusstion = () => {
   const [comments, setComments] = useState([]);
-  const [commentId, setCommentId] = useState(null);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -32,19 +31,13 @@ const Discusstion = () => {
     }
   }, [error]);
 
-  const selectCommentHandler = (id) => {
-    setCommentId(id);
-  };
 
   return (
     <>
       <CommentList
         error={error}
         comments={comments}
-        onClick={selectCommentHandler}
       />
-      {/* <FullComment commentId={commentId} setComments={setComments} setCommentId={setCommentId} />
-      <NewComment setComments={setComments} /> */}
     </>
   );
 };
