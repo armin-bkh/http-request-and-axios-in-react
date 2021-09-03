@@ -31,9 +31,8 @@ const FullComment = ({match, history}) => {
     e.preventDefault();
     try {
       await deleteComment(commentID);
-      setComment(null);
-      // commentID = null;
-      setError({message: 'comment successfully removed', type: 'success'});
+      await setError({message: 'comment successfully removed', type: 'success'});
+      history.push("/");
     } catch (err) {
       setError({message: 'same error has been accord', type: 'error'});
     }

@@ -3,7 +3,7 @@ import { toast } from "react-toastify";
 import { addNewComment } from "../../Services/addNewCommentService";
 import InputComment from '../../Components/InputComment/InputComment'
 
-const NewComment = () => {
+const NewComment = ({ history }) => {
   const [formValues, setFormValues] = useState({
     name: "",
     email: "",
@@ -30,7 +30,8 @@ const NewComment = () => {
     try {
       if (formValues.name && formValues.body && formValues.email) {
         await addNewComment(formValues);
-        setError({ message: "comment successfully added", type: "success" });
+        await setError({ message: "comment successfully added", type: "success" });
+        history.push("/");
       }
       else{
         setError({ message: "you must fill all inputs", type: "error" });
@@ -38,11 +39,6 @@ const NewComment = () => {
     } catch (err) {
       setError({ message: "same error has been accord", type: "error" });
     }
-    setFormValues({
-      name: "",
-      email: "",
-      body: "",
-    });
   };
 
   return (
