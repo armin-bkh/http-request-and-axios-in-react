@@ -1,4 +1,4 @@
-import { Link, withRouter } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 
 const links = [
   { title: "Home", to: "/" },
@@ -11,7 +11,7 @@ const Navigation = () => {
       <ul>
         {links.map((link) => (
           <li key={link.to}>
-            <Link to={link.to}>{link.title}</Link>
+            <NavLink activeClassName="text-red-500" to={link.to}>{link.title}</NavLink>
           </li>
         ))}
       </ul>
