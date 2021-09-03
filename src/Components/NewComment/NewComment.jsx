@@ -53,11 +53,14 @@ const NewComment = ({ setComments }) => {
                 <InputComment id="name" name="name" lbl="name" type="text" onChange={changeHandler} value={formValues.name} />
                 <InputComment id="email" name="email" lbl="email" type="email" onChange={changeHandler} value={formValues.email} />
                 <fieldset className={`d-flex-row justify-center`}>
-                    <label htmlFor="body">content: </label>
-                    <textarea className={`ml-2 outline-none rounded-md border border-gray-400`} id="body" value={formValues.body} name="body"onChange={changeHandler}>
+                    <label htmlFor="body" className={`text-purple-400 font-medium`}>content: </label>
+                    <textarea className={`ml-2 outline-none rounded-md border border-gray-400 p-2`} id="body" value={formValues.body} name="body"onChange={changeHandler}>
                     </textarea>
                 </fieldset>
-                <button className={`mt-10 block mx-auto border-1 outline-none text-white rounded-md px-3 py-1 bg-gray-900 border-gray-400`} type="submit" >submit</button>
+                <button className={`mt-10 block mx-auto border-1 outline-none
+                 text-purple-400 rounded-md px-3 py-1 bg-white border-2
+                 border-purple-400 hover:text-white hover:bg-purple-400
+                 hover:border-0 font-medium`} type="submit" >submit</button>
             </form>
         </section>
      );
