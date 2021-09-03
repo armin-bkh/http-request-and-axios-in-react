@@ -1,10 +1,10 @@
-import FullComment from "../Components/FullComment/FullComment"
+import FullComment from "../Pages/FullComment/FullComment"
 import HomePage from "../Pages/HomePage"
-import NewCommentPage from "../Pages/NewCommentPage"
+import NewComment from "../Pages/NewComment/NewComment"
 
 const routes = [
     {path: "/", component: HomePage, exact: true},
-    {path: "/new-comment", component: NewCommentPage},
+    {path: "/new-comment", component: NewComment},
     {path: "/comments/:id", component: FullComment}
 ]
 

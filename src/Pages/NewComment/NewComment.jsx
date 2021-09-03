@@ -1,8 +1,7 @@
-import http from "../../Services/httpServices";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import InputComment from "../InputComment/InputComment";
+import { toast } from "react-toastify"; 
 import { addNewComment } from "../../Services/addNewCommentService";
+import InputComment from '../../Components/InputComment/InputComment'
 
 const NewComment = () => {
   const [formValues, setFormValues] = useState({

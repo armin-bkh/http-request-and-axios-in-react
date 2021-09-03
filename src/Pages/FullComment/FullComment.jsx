@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import http from "../../Services/httpServices";
 import styles from "./FullComment.module.scss";
 import { getOneComment } from '../../Services/getOneCommentService';
 import { deleteComment } from '../../Services/deleteCommentService';
-import { getAllComments } from '../../Services/getAllCommentsService';
 import { Link } from "react-router-dom";
 
 const FullComment = ({match, history}) => {

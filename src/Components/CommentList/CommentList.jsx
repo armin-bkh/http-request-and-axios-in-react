@@ -7,17 +7,20 @@ const CommentList = () => {
   const [comments, setComments] = useState(null);
   const [error, setError] = useState(false);
 
-  useEffect(async ()=>{
-    try{
-      const { data } = await getAllComments();
-      setComments(data); 
+  useEffect(()=>{
+    const getComment = async () =>{
+      try{
+        const { data } = await getAllComments();
+        setComments(data); 
+      }
+      catch(err){
+        setError({type: 'error', message: "error fetching data"})
+      }
     }
-    catch(err){
-      setError({type: 'error', message: "error fetching data"})
-    }
+    getComment();
   }, [])
   let returnValue = <h1 className={`text-2xl`}>Loading...</h1>;
-  if (comments.length && !error) {
+  if (comments && !error) {
     returnValue = comments.map((comnt) => (
       <Link to={`/comments/${comnt.id}`} key={comnt.id}>
         <Comment id={comnt.id} name={comnt.name} email={comnt.email} />
@@ -28,7 +31,7 @@ const CommentList = () => {
 
   return (
     <section
-      className={`d-flex-row p-5 ${!comments.length && `justify-center`}`}
+      className={`d-flex-row p-5 ${!comments && `justify-center`}`}
     >
       {returnValue}
     </section>
